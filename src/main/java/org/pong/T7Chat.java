@@ -16,7 +16,7 @@ public class T7Chat {
 	private String content;
 	// private Date dateSent;
 
-	public T7Chat (String author, String content) {
+	public T7Chat(String author, String content) {
 		this.author = author;
 		this.content = content;
 	}
