@@ -29,7 +29,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	private int scoreA;
 	private int scoreB;
 
-	private ArrayList<Chat> chatHistory;
+	private ArrayList<T7Chat> chatHistory;
 
   private T7DataRepository() {
     super(new Object());
@@ -40,7 +40,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 		paddleB = new PaddleB();
 		scoreA = 0;
 		scoreB 0;
-		chatHistory = new ArrayList<Chat>();
+		chatHistory = new ArrayList<T7Chat>();
   }
 
   public static T7DataRepository getInstance() {
@@ -48,7 +48,7 @@ public class T7DataRepository extends PropertyChangeSupport {
     return instance;
   }
 
-	public ArrayList<Chat> getchatHistory() { return chatHistory; }
+	public ArrayList<T7Chat> getchatHistory() { return chatHistory; }
 	public int scoreA() { return scoreA; }
 	public int scoreB() { return scoreB; }
 
