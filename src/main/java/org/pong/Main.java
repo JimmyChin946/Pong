@@ -1,4 +1,4 @@
-package org.example;
+package org.pong;
 
 public class Main {
     public static void main(String[] args) {
