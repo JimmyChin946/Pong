@@ -47,6 +47,11 @@ public class T7DataRepository extends PropertyChangeSupport {
     if (instance == null) { instance = new Repository(); }
     return instance;
   }
+
+	public ArrayList<Chat> getchatHistory() { return chatHistory; }
+	public int scoreA() { return scoreA; }
+	public int scoreB() { return scoreB; }
+
 }
 
 
