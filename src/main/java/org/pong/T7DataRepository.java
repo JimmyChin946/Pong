@@ -3,6 +3,7 @@ package org.pong;
 import javax.swing.*;
 import java.awt.event.*;
 import java.beans.*;
+import java.util.ArrayList;
 
 
 /**
@@ -32,6 +33,14 @@ public class T7DataRepository extends PropertyChangeSupport {
 
   private T7DataRepository() {
     super(new Object());
+		
+		// default values
+		ball = new Ball();
+		paddleA = new PaddleA();
+		paddleB = new PaddleB();
+		scoreA = 0;
+		scoreB 0;
+		chatHistory = new ArrayList<Chat>();
   }
 
   public static T7DataRepository getInstance() {
