@@ -11,12 +11,12 @@ package org.pong;
 * @author Jude Shin 
 * 
 */
-public class Chat {
+public class T7Chat {
 	private String author;
 	private String content;
 	// private Date dateSent;
 
-	public Chat (String author, String content) {
+	public T7Chat (String author, String content) {
 		this.author = author;
 		this.content = content;
 	}
