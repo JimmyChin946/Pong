@@ -57,16 +57,28 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public T7Player getPlayerClient() { return playerClient; }
 
 	public int getScoreHost() { return scoreHost; }
-	public void setScoreHost(int score) { scoreHost = score; }
+	public void setScoreHost(int score) {
+		scoreHost = score; 
+		firePropertyChange("scoreHost", null, scoreHost);
+	}
 
 	public int getScoreClient() { return scoreClient; }
-	public void setScoreClient(int score) { scoreClient = score; }
+	public void setScoreClient(int score) { 
+		scoreClient = score; 
+		firePropertyChange("scoreHost", null, scoreHost);
+	}
 
 	public ArrayList<T7Chat> getChatHistory() { return chatHistory; }
-	public void addChatHistory(T7Chat chat) { chatHistory.add(chat); }
+	public void addChatHistory(T7Chat chat) {
+		chatHistory.add(chat); 
+		firePropertyChange("chatHistory", null, chatHistory);
+	}
 
 	public void pushPublishQueue(PublishItem publishItem) { publishQueue.offer(publishItem); }
-	public PublishItem popPublishQueue() { return publishQueue.poll(); }
+	public PublishItem popPublishQueue() { 
+		return publishQueue.poll(); 
+		firePropertyChange("publishQueue", null, publishQueue);
+	}
 }
 
 
