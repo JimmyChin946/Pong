@@ -13,11 +13,10 @@ import java.util.ArrayList;
  */
 public class T7ChatHandler implements PropertyChangeListener {
     private T7DataRepository dataRepository;
-    private JPanel chatPanel;
+    private T7ChatPanel chatPanel;
 
     public T7ChatHandler() {
-        chatPanel = new JPanel();
-        chatPanel.setLayout(new BoxLayout(chatPanel, BoxLayout.Y_AXIS));
+        chatPanel = new T7ChatPanel();
 
         dataRepository = T7DataRepository.getInstance();
         dataRepository.addPropertyChangeListener("chat", this);
@@ -25,7 +24,7 @@ public class T7ChatHandler implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        updateChat(dataRepository.getchatHistory());
+        updateChat(dataRepository.getChatHistory());
     }
 
     public JPanel getPanel() {

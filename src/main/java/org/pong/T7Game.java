@@ -15,5 +15,8 @@ public class T7Game {
 
         T7ChatHandler chatHandler = new T7ChatHandler();
         frame.add(chatHandler.getPanel());
+        frame.setSize(800, 600);
+
+        frame.setVisible(true);
     }
 }
