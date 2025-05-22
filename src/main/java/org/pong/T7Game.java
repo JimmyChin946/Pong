@@ -2,6 +2,11 @@ package org.pong;
 
 import javax.swing.*;
 
+/**
+ *
+ *
+ * @author Nathan Lackie
+ */
 public class T7Game {
     static JFrame frame;
 

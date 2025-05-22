@@ -1,7 +1,5 @@
 package org.pong;
 
-import javax.swing.*;
-import java.awt.event.*;
 import java.beans.*;
 import java.util.ArrayList;
 
@@ -21,10 +19,10 @@ import java.util.ArrayList;
 public class T7DataRepository extends PropertyChangeSupport {
   private static T7DataRepository instance;
 
-	private Ball ball;
+	private T7Ball ball;
 
-	private Paddle paddleA;
-	private Paddle paddleB;
+	private T7Player paddleA;
+	private T7Player paddleB;
 
 	private int scoreA;
 	private int scoreB;
@@ -35,20 +33,20 @@ public class T7DataRepository extends PropertyChangeSupport {
     super(new Object());
 		
 		// default values
-		ball = new Ball();
-		paddleA = new PaddleA();
-		paddleB = new PaddleB();
+		ball = new T7Ball();
+		paddleA = new T7Player();
+		paddleB = new T7Player();
 		scoreA = 0;
-		scoreB 0;
-		chatHistory = new ArrayList<T7Chat>();
+		scoreB = 0;
+		chatHistory = new ArrayList<>();
   }
 
   public static T7DataRepository getInstance() {
-    if (instance == null) { instance = new Repository(); }
+    if (instance == null) { instance = new T7DataRepository(); }
     return instance;
   }
 
-	public ArrayList<T7Chat> getchatHistory() { return chatHistory; }
+	public ArrayList<T7Chat> getChatHistory() { return chatHistory; }
 	public int scoreA() { return scoreA; }
 	public int scoreB() { return scoreB; }
 

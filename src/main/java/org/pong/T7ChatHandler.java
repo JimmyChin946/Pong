@@ -6,6 +6,11 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
+/**
+ *
+ *
+ * @author Nathan Lackie
+ */
 public class T7ChatHandler implements PropertyChangeListener {
     private T7DataRepository dataRepository;
     private JPanel chatPanel;
