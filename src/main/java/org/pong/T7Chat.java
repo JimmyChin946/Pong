@@ -1,5 +1,7 @@
 package org.pong;
 
+import java.io.Serializable;
+
 
 /**
 * A datastructure to hold a "message"
@@ -11,7 +13,9 @@ package org.pong;
 * @author Jude Shin 
 * 
 */
-public class T7Chat {
+public class T7Chat implements Serializable {
+	private static final long serialVerionUID = 1L;
+
 	private String author;
 	private String content;
 	// private Date dateSent;

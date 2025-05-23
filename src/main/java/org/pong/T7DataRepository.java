@@ -31,7 +31,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 
 	private ArrayList<T7Chat> chatHistory;
 
-	private Queue<PublishItem> publishQueue;
+	private Queue<T7PublishItem> publishQueue;
 
   private T7DataRepository() {
     super(new Object());
@@ -51,10 +51,23 @@ public class T7DataRepository extends PropertyChangeSupport {
     return instance;
   }
 
-	public Ball getBall() { return Ball; }
+	public T7Ball getBall() { return Ball; }
+	public void setBall(T7Ball ball) {
+		this.ball = ball; 
+		firePropertyChange("ball", null, ball);
+	}
 
 	public T7Player getPlayerHost() { return playerHost; }
+	public void setPlayerHost(T7Player player) { 
+		this.playerHost = player; 
+		firePropertyChange("playerHost", null, playerHost);
+	}
+
 	public T7Player getPlayerClient() { return playerClient; }
+	public void setPlayerClient(T7Player player) { 
+		this.playerClient = player; 
+		firePropertyChange("playerClient", null, playerClient);
+	}
 
 	public int getScoreHost() { return scoreHost; }
 	public void setScoreHost(int score) {
@@ -74,10 +87,12 @@ public class T7DataRepository extends PropertyChangeSupport {
 		firePropertyChange("chatHistory", null, chatHistory);
 	}
 
-	public void pushPublishQueue(PublishItem publishItem) { publishQueue.offer(publishItem); }
-	public PublishItem popPublishQueue() { 
-		return publishQueue.poll(); 
+	public void pushPublishQueue(T7PublishItem publishItem) { publishQueue.offer(publishItem); }
+	public T7PublishItem popPublishQueue() {
+		T7PublishItem publishItem = publishQueue.poll();
 		firePropertyChange("publishQueue", null, publishQueue);
+		// firePropertyChange("publishItem", null, publishItem);
+		return publishItem;
 	}
 }
 

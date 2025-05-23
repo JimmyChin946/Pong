@@ -1,24 +1,31 @@
 package org.pong;
 
+import org.eclipse.paho.client.mqttv3.*;
+
+
 /**
-*	Subscribes for the cloud 
+*	Subscribes for the cloud based on a topic
+* there should be multiple subscribers for multiple topics called
 * 
 * @author Jude Shin
 * 
 */
 public class T7Subscriber implements MqttCallback {
-	private final static String BROKER = "tcp://broker.hivemq.com:1883";
-	private final static String TOPIC = "cal-poly/csc/307/meee";
-	private final static String CLIENT_ID = "god-listener";
+	// private final static String BROKER = "tcp://broker.hivemq.com:1883";
+	// private final static String TOPIC = "cal-poly/csc/307/meee";
+	// private final static String CLIENT_ID = "god-listener";
+	private String subTopic;
 
-	public T7Subscriber() {
+
+	public T7Subscriber(String broker, String baseTopic, String subTopic, String id) {
+		this.subTopic = subTopic;
 		try {
-			MqttClient client = new MqttClient(BROKER, CLIENT_ID);
+			MqttClient client = new MqttClient(broker, id);
 			client.setCallback(this);
 			client.connect();
-			System.out.println("Connected to BROKER: " + BROKER);
-			client.subscribe(TOPIC);
-			System.out.println("Subscribed to TOPIC: " + TOPIC);
+			System.out.println("Connected to BROKER: " + broker);
+			client.subscribe(baseTopic + "/" + subTopic);
+			System.out.println("Subscribed to TOPIC: " + baseTopic + "/" + subTopic);
 		} catch (MqttException e) {
 			e.printStackTrace();
 		}
@@ -31,16 +38,39 @@ public class T7Subscriber implements MqttCallback {
 
 	@Override
 	public void messageArrived(String s, MqttMessage mqttMessage) {
-		String message = new String(mqttMessage.getPayload());
-		String[] splitStrings = message.split(",");
+		byte[] bytes = mqttMessage.getPayload();
 
-		int x = Integer.parseInt(splitStrings[0]);
-		int y = Integer.parseInt(splitStrings[1]);
+		System.out.println("Message Arrived! TOPIC: " + subTopic);
 
-		System.out.println("Message arrived. Point: " + s +
-				" Message: " + "(" + message + ")");
-
-		T7DataRepository.getInstance().setPoint(x, y);
+		switch (subTopic) {
+			case "ball":
+				T7Ball ball = ByteConverter.fromBytes(bytes, T7Ball.class);
+				T7DataRepository.getInstance().setBall(ball);
+			break;
+			case "playerHost":
+				T7Player playerHost = ByteConverter.fromBytes(bytes, T7Player.class);
+				T7DataRepository.getInstance().setPlayerHost(playerHost);
+			break;
+			case "playerClient":
+				T7Player playerClient = ByteConverter.fromBytes(bytes, T7Player.class);
+				T7DataRepository.getInstance().setPlayerClient(playerClient);
+			break;
+			case "scoreHost":
+				int scoreHost = ByteConverter.fromBytes(bytes, Integer.class);
+				T7DataRepository.getInstance().setScoreHost(scoreHost);
+			break;
+			case "scoreClient":
+				int scoreClient = ByteConverter.fromBytes(bytes, Integer.class);
+				T7DataRepository.getInstance().setScoreClient(scoreClient);
+			break;
+			case "chat":
+				T7Chat chat = ByteConverter.fromBytes(bytes, T7Chat.class);
+				T7DataRepository.getInstance().addChatHistory(chat);
+			break;
+			default:
+				System.out.println("given SubTopic does not match any forms");
+				System.out.println("message not saved");
+		}
 	}
 
 	@Override
