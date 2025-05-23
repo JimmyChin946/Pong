@@ -7,19 +7,19 @@ import java.util.Queue;
 
 
 /**
-* Singleton for all of the data used in pong
-* ball: for the location of the ball
-*	playerHost : for the location of one of the players paddle
-* playerClient : for the location of the other players paddle
-*	scoreHost : the score of one of the players 
-* scoreClient : the score of the other player
-* chatHistory : the log of the game's chat history
-* 
-* @author Jude Shin 
-* 
-*/
+ * Singleton for all of the data used in pong
+ * ball: for the location of the ball
+ * playerHost : for the location of one of the players paddle
+ * playerClient : for the location of the other players paddle
+ * scoreHost : the score of one of the players
+ * scoreClient : the score of the other player
+ * chatHistory : the log of the game's chat history
+ * 
+ * @author Jude Shin 
+ * 
+ */
 public class T7DataRepository extends PropertyChangeSupport {
-  private static T7DataRepository instance;
+	private static T7DataRepository instance;
 
 	private T7Ball ball;
 
@@ -33,9 +33,9 @@ public class T7DataRepository extends PropertyChangeSupport {
 
 	private Queue<T7PublishItem> publishQueue;
 
-  private T7DataRepository() {
-    super(new Object());
-		
+	private T7DataRepository() {
+		super(new Object());
+
 		// default values
 		ball = new T7Ball();
 		playerHost = new T7Player();
@@ -44,12 +44,12 @@ public class T7DataRepository extends PropertyChangeSupport {
 		scoreClient = 0;
 		chatHistory = new ArrayList<>();
 		publishQueue = new LinkedList<>();
-  }
+	}
 
-  public static T7DataRepository getInstance() {
-    if (instance == null) { instance = new T7DataRepository(); }
-    return instance;
-  }
+	public static T7DataRepository getInstance() {
+		if (instance == null) { instance = new T7DataRepository(); }
+		return instance;
+	}
 
 	public T7Ball getBall() { return Ball; }
 	public void setBall(T7Ball ball) {

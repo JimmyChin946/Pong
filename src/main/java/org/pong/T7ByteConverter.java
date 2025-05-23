@@ -1,10 +1,17 @@
 package org.pong;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 
-
-class ByteConverter {
-	private ByteConverter(){}
+/**
+ * Converts things to and from bytes in a universal way so that we can send
+ * information through mqtt
+ *
+ * @author Jude Shin
+ *
+ */
+class T7ByteConverter {
+	private T7ByteConverter(){}
 	
 	public static byte[] toBytes(Object obj) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -31,8 +38,8 @@ class ByteConverter {
 	// public byte[] encodePlayer(){}
 	// public T7Player decodePlayer(){}
 
-	public byte[] encodeInt(int i){ return new byte[]{(byte)i} }
-	public int decodeInt(byte[] ba){ return (ba[0]) & 0xFF }
+	public byte[] encodeInt(int i){ return new byte[]{(byte)i}; }
+	public int decodeInt(byte[] ba){ return (ba[0]) & 0xFF; }
 
 	public byte[] encodeString(String s){ return s.getBytes(StandardCharsets.UTF_8); }
 	public String decodeString(byte[] ba){ return new String(ba, StandardCharsets.UTF_8); }

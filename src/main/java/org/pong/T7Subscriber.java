@@ -2,6 +2,8 @@ package org.pong;
 
 import org.eclipse.paho.client.mqttv3.*;
 
+import java.io.IOException;
+
 
 /**
 *	Subscribes for the cloud based on a topic
@@ -37,34 +39,34 @@ public class T7Subscriber implements MqttCallback {
 	}
 
 	@Override
-	public void messageArrived(String s, MqttMessage mqttMessage) {
+	public void messageArrived(String s, MqttMessage mqttMessage) throws IOException, ClassNotFoundException {
 		byte[] bytes = mqttMessage.getPayload();
 
 		System.out.println("Message Arrived! TOPIC: " + subTopic);
 
 		switch (subTopic) {
 			case "ball":
-				T7Ball ball = ByteConverter.fromBytes(bytes, T7Ball.class);
+				T7Ball ball = T7ByteConverter.fromBytes(bytes, T7Ball.class);
 				T7DataRepository.getInstance().setBall(ball);
 			break;
 			case "playerHost":
-				T7Player playerHost = ByteConverter.fromBytes(bytes, T7Player.class);
+				T7Player playerHost = T7ByteConverter.fromBytes(bytes, T7Player.class);
 				T7DataRepository.getInstance().setPlayerHost(playerHost);
 			break;
 			case "playerClient":
-				T7Player playerClient = ByteConverter.fromBytes(bytes, T7Player.class);
+				T7Player playerClient = T7ByteConverter.fromBytes(bytes, T7Player.class);
 				T7DataRepository.getInstance().setPlayerClient(playerClient);
 			break;
 			case "scoreHost":
-				int scoreHost = ByteConverter.fromBytes(bytes, Integer.class);
+				int scoreHost = T7ByteConverter.fromBytes(bytes, Integer.class);
 				T7DataRepository.getInstance().setScoreHost(scoreHost);
 			break;
 			case "scoreClient":
-				int scoreClient = ByteConverter.fromBytes(bytes, Integer.class);
+				int scoreClient = T7ByteConverter.fromBytes(bytes, Integer.class);
 				T7DataRepository.getInstance().setScoreClient(scoreClient);
 			break;
 			case "chat":
-				T7Chat chat = ByteConverter.fromBytes(bytes, T7Chat.class);
+				T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
 				T7DataRepository.getInstance().addChatHistory(chat);
 			break;
 			default:

@@ -14,7 +14,7 @@ import java.io.Serializable;
 * 
 */
 public class T7Chat implements Serializable {
-	private static final long serialVerionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	private String author;
 	private String content;
