@@ -51,7 +51,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 		return instance;
 	}
 
-	public T7Ball getBall() { return Ball; }
+	public T7Ball getBall() { return ball; }
 	public void setBall(T7Ball ball) {
 		this.ball = ball; 
 		firePropertyChange("ball", null, ball);
