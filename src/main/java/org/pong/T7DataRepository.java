@@ -99,12 +99,8 @@ public class T7DataRepository extends PropertyChangeSupport {
 	}
 
 	public void pushPublishQueue(T7PublishItem publishItem) { publishQueue.offer(publishItem); }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public T7PublishItem popPublishQueue() { return this.popPublishQueue(false); }
 	public T7PublishItem popPublishQueue(boolean isSilent) {
 		T7PublishItem publishItem = publishQueue.poll();
-		if (isSilent) { firePropertyChange("publishQueue", null, publishQueue); }
-		// firePropertyChange("publishItem", null, publishItem);
 		return publishItem;
 	}
 }
