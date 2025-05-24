@@ -17,9 +17,12 @@ public class T7Subscriber implements MqttCallback {
 	// private final static String TOPIC = "cal-poly/csc/307/meee";
 	// private final static String CLIENT_ID = "god-listener";
 	private String subTopic;
+	private final boolean isHost;
 
-	public T7Subscriber(String broker, String baseTopic, String subTopic, String id) {
+	public T7Subscriber(String broker, String baseTopic, String subTopic, String id, boolean isHost) {
 		this.subTopic = subTopic;
+		this.isHost = isHost;
+
 		try {
 			MqttClient client = new MqttClient(broker, id);
 			client.setCallback(this);
@@ -43,35 +46,49 @@ public class T7Subscriber implements MqttCallback {
 
 		System.out.println("Message Arrived! TOPIC: " + subTopic);
 
-		switch (subTopic) {
-			case "ball":
-				T7Ball ball = T7ByteConverter.fromBytes(bytes, T7Ball.class);
-				T7DataRepository.getInstance().setBall(ball);
-				break;
-			case "playerHost":
-				T7Player playerHost = T7ByteConverter.fromBytes(bytes, T7Player.class);
-				T7DataRepository.getInstance().setPlayerHost(playerHost);
-				break;
-			case "playerClient":
-				T7Player playerClient = T7ByteConverter.fromBytes(bytes, T7Player.class);
-				T7DataRepository.getInstance().setPlayerClient(playerClient);
-				break;
-			case "scoreHost":
-				int scoreHost = T7ByteConverter.fromBytes(bytes, Integer.class);
-				T7DataRepository.getInstance().setScoreHost(scoreHost);
-				break;
-			case "scoreClient":
-				int scoreClient = T7ByteConverter.fromBytes(bytes, Integer.class);
-				T7DataRepository.getInstance().setScoreClient(scoreClient);
-				break;
-			case "chat":
-				T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-				T7DataRepository.getInstance().addChatHistory(chat);
-				break;
-			default:
-				System.out.println("given SubTopic does not match any forms");
-				System.out.println("message not saved");
+		if (isHost) {
+			switch (subTopic) {
+				case "playerClient":
+					T7Player playerClient = T7ByteConverter.fromBytes(bytes, T7Player.class);
+					T7DataRepository.getInstance().setPlayerClient(playerClient);
+					break;
+				case "chat":
+					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
+					T7DataRepository.getInstance().addChatHistory(chat);
+					break;
+				default:
+					System.out.println("given SubTopic does not match any forms (as the HOST)");
+					System.out.println("message not saved");
+			}
 		}
+		else {
+			switch (subTopic) {
+				case "ball":
+					T7Ball ball = T7ByteConverter.fromBytes(bytes, T7Ball.class);
+					T7DataRepository.getInstance().setBall(ball);
+					break;
+				case "playerHost":
+					T7Player playerHost = T7ByteConverter.fromBytes(bytes, T7Player.class);
+					T7DataRepository.getInstance().setPlayerHost(playerHost);
+					break;
+				case "scoreHost":
+					int scoreHost = T7ByteConverter.fromBytes(bytes, Integer.class);
+					T7DataRepository.getInstance().setScoreHost(scoreHost);
+					break;
+				case "scoreClient":
+					int scoreClient = T7ByteConverter.fromBytes(bytes, Integer.class);
+					T7DataRepository.getInstance().setScoreClient(scoreClient);
+					break;
+				case "chat":
+					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
+					T7DataRepository.getInstance().addChatHistory(chat);
+					break;
+				default:
+					System.out.println("given SubTopic does not match any forms (as the CLIENT)");
+					System.out.println("message not saved");
+			}
+		}
+
 	}
 
 	@Override
