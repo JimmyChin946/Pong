@@ -3,6 +3,7 @@ package org.pong;
 import org.eclipse.paho.client.mqttv3.MqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+import java.util.Arrays; 
 
 /**
  * Publishes data to the cloud with mqtt 
@@ -42,18 +43,22 @@ public class T7Publisher implements Runnable {
 				byte[] content = publishItem.getMessage();
 				String subTopic = publishItem.getSubTopic();
 				String fullTopic = topic + "/" + subTopic;
+				
 
 				// checks to make sure we are publishing the correct things
-				if (isHost
-						&& (!((subTopic == "ball") || (subTopic == "scoreHost") || (subTopic == "scoreClient") || (subTopic == "playerHost") || (subTopic == "chat")))) {
-					// the host should only be able to publish ball, scoreHost, scoreClient, playerHost, and chat 
-					System.out.println("HOST is not allowed to publish the following topic: " + subTopic);
-					continue;
+				if (isHost) {
+					String[] allowedHostTopics = {"ball", "scoreHost", "scoreClient", "playerHost", "chat"};
+					if (!Arrays.asList(allowedHostTopics).contains(subTopic)) {
+						System.out.println("HOST is not allowed to publish the following topic: " + subTopic);
+						continue;
+					}
 				}
 				else if (!((subTopic == "playerClient") || (subTopic == "chat"))) {
-					// the client should only be able to publish the playerClient, and chat
-					System.out.println("CLIENT is not allowed to publish the following topic: " + subTopic);
-					continue;
+					String[] allowedClientTopics = {"playerClient", "chat"};
+					if (!Arrays.asList(allowedClientTopics).contains(subTopic)) {
+						System.out.println("CLIENT is not allowed to publish the following topic: " + subTopic);
+						continue;
+					}
 				}
 
 				MqttMessage message = new MqttMessage(content);
