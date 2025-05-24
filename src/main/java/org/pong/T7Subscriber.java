@@ -54,7 +54,7 @@ public class T7Subscriber implements MqttCallback {
 					break;
 				case "chat":
 					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-					T7DataRepository.getInstance().addChatHistory(chat);
+					T7DataRepository.getInstance().addChatHistory(chat, false);
 					break;
 				default:
 					System.out.println("given SubTopic does not match any forms (as the HOST)");
