@@ -17,11 +17,13 @@ public class T7Publisher implements Runnable {
 	private String broker;
 	private String topic;
 	private String id;
+	private final boolean isHost;
 
-	public T7Publisher(String broker, String topic, String id) {
+	public T7Publisher(String broker, String topic, String id, boolean isHost) {
 		this.broker = broker;
 		this.topic = topic;
 		this.id = id;
+		this.isHost = isHost;
 	}
 
 	public void setTopic(String topic) { this.topic = topic; };
@@ -38,7 +40,21 @@ public class T7Publisher implements Runnable {
 				if (publishItem == null) { continue; }
 
 				byte[] content = publishItem.getMessage();
-				String fullTopic = topic + "/" + publishItem.getSubTopic();
+				String subTopic = publishItem.getSubTopic();
+				String fullTopic = topic + "/" + subTopic;
+
+				// checks to make sure we are publishing the correct things
+				if (isHost
+						&& (!((subTopic == "ball") || (subTopic == "scoreHost") || (subTopic == "scoreClient") || (subTopic == "playerHost") || (subTopic == "chat")))) {
+					// the host should only be able to publish ball, scoreHost, scoreClient, playerHost, and chat 
+					System.out.println("HOST is not allowed to publish the following topic: " + subTopic);
+					continue;
+				}
+				else if (!((subTopic == "playerClient") || (subTopic == "chat"))) {
+					// the client should only be able to publish the playerClient, and chat
+					System.out.println("CLIENT is not allowed to publish the following topic: " + subTopic);
+					continue;
+				}
 
 				MqttMessage message = new MqttMessage(content);
 				message.setQos(2);
