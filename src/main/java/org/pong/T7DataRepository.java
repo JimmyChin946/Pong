@@ -1,6 +1,7 @@
 package org.pong;
 
 import java.beans.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -51,55 +52,56 @@ public class T7DataRepository extends PropertyChangeSupport {
 	}
 
 	public T7Ball getBall() { return ball; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void setBall(T7Ball ball) { this.setBall(ball, false); } 
-	public void setBall(T7Ball ball, boolean isSilent) {
+	public void setBall(T7Ball ball, boolean isSilent) throws IOException {
 		this.ball = ball; 
-		if (isSilent)	{ firePropertyChange("ball", null, ball); }
+		T7PublishItem publishItem = new T7PublishItem("ball", T7ByteConverter.toBytes(ball));
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("ball", null, ball); 
 	}
 
 	public T7Player getPlayerHost() { return playerHost; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void setPlayerHost(T7Player player) { this.setPlayerHost(player, false); } 
-	public void setPlayerHost(T7Player player, boolean isSilent) { 
+	public void setPlayerHost(T7Player player, boolean isSilent) throws IOException { 
 		this.playerHost = player; 
-		if (isSilent)	{ firePropertyChange("playerHost", null, playerHost); }
+		T7PublishItem publishItem = new T7PublishItem("playerHost", T7ByteConverter.toBytes(player));
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("playerHost", null, playerHost); 
 	}
 
 	public T7Player getPlayerClient() { return playerClient; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void setPlayerClient(T7Player player) { this.setPlayerClient(player, false); }
-	public void setPlayerClient(T7Player player, boolean isSilent) { 
+	public void setPlayerClient(T7Player player, boolean isSilent) throws IOException { 
 		this.playerClient = player; 
-		if (isSilent)	{ firePropertyChange("playerClient", null, playerClient); }
+		T7PublishItem publishItem = new T7PublishItem("playerClient", T7ByteConverter.toBytes(player));
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("playerClient", null, playerClient); 
 	}
 
 	public int getScoreHost() { return scoreHost; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void setScoreHost(int score) { this.setScoreHost(score, false); }
-	public void setScoreHost(int score, boolean isSilent) {
+	public void setScoreHost(int score, boolean isSilent) throws IOException {
 		scoreHost = score; 
-		if (isSilent)	{ firePropertyChange("scoreHost", null, scoreHost); }
+		T7PublishItem publishItem = new T7PublishItem("scoreHost", T7ByteConverter.toBytes(score));
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("scoreHost", null, scoreHost); 
 	}
 
 	public int getScoreClient() { return scoreClient; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void setScoreClient(int score) { this.setScoreClient(score, false); }
-	public void setScoreClient(int score, boolean isSilent) { 
+	public void setScoreClient(int score, boolean isSilent) throws IOException { 
 		scoreClient = score; 
-		if (isSilent)	{ firePropertyChange("scoreHost", null, scoreHost); }
+		T7PublishItem publishItem = new T7PublishItem("scoreClient", T7ByteConverter.toBytes(score));
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("scoreClient", null, scoreHost); 
 	}
 
 	public ArrayList<T7Chat> getChatHistory() { return chatHistory; }
-	// so it doesn't break everything that has been worked on... could be refactored later
-	public void addChatHistory(T7Chat chat) { this.addChatHistory(chat, false); }
-	public void addChatHistory(T7Chat chat, boolean isSilent) {
+	public void addChatHistory(T7Chat chat, boolean isSilent) throws IOException {
 		chatHistory.add(chat); 
-		if (isSilent)	{ firePropertyChange("chatHistory", null, chatHistory); }
+		T7PublishItem publishItem = new T7PublishItem("chat", T7ByteConverter.toBytes(chat)); 
+		if (isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("chatHistory", null, chatHistory); 
+		// firePropertyChange("chat", null, chat); // can send this over if we want as well
 	}
 
 	public void pushPublishQueue(T7PublishItem publishItem) { publishQueue.offer(publishItem); }
-	public T7PublishItem popPublishQueue(boolean isSilent) {
+	public T7PublishItem popPublishQueue() {
 		T7PublishItem publishItem = publishQueue.poll();
 		return publishItem;
 	}
