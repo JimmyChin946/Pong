@@ -9,6 +9,8 @@ import java.awt.*;
  * @version 1.0
  */
 public class T7Ball {
+    private static final long serialVersionUID = 1L;
+
     private int x, y;
     private int dx = 5, dy =5;
     private int size = 20;

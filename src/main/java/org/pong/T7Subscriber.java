@@ -18,7 +18,6 @@ public class T7Subscriber implements MqttCallback {
 	// private final static String CLIENT_ID = "god-listener";
 	private String subTopic;
 
-
 	public T7Subscriber(String broker, String baseTopic, String subTopic, String id) {
 		this.subTopic = subTopic;
 		try {

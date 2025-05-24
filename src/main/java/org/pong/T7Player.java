@@ -3,6 +3,8 @@ package org.pong;
 import java.awt.*;
 
 public class T7Player {
+    private static final long serialVersionUID = 1L;
+
     private int x, y;
     private final int width = 20, height = 100;
     private int score = 0;
