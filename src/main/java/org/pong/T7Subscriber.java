@@ -50,11 +50,11 @@ public class T7Subscriber implements MqttCallback {
 			switch (subTopic) {
 				case "playerClient":
 					T7Player playerClient = T7ByteConverter.fromBytes(bytes, T7Player.class);
-					T7DataRepository.getInstance().setPlayerClient(playerClient);
+					T7DataRepository.getInstance().setPlayerClient(playerClient, false);
 					break;
 				case "chat":
 					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-					T7DataRepository.getInstance().addChatHistory(chat, false);
+					T7DataRepository.getInstance().addChatHistory(chat, true);
 					break;
 				default:
 					System.out.println("given SubTopic does not match any forms (as the HOST)");
@@ -65,30 +65,29 @@ public class T7Subscriber implements MqttCallback {
 			switch (subTopic) {
 				case "ball":
 					T7Ball ball = T7ByteConverter.fromBytes(bytes, T7Ball.class);
-					T7DataRepository.getInstance().setBall(ball);
+					T7DataRepository.getInstance().setBall(ball, false);
 					break;
 				case "playerHost":
 					T7Player playerHost = T7ByteConverter.fromBytes(bytes, T7Player.class);
-					T7DataRepository.getInstance().setPlayerHost(playerHost);
+					T7DataRepository.getInstance().setPlayerHost(playerHost, false);
 					break;
 				case "scoreHost":
 					int scoreHost = T7ByteConverter.fromBytes(bytes, Integer.class);
-					T7DataRepository.getInstance().setScoreHost(scoreHost);
+					T7DataRepository.getInstance().setScoreHost(scoreHost, false);
 					break;
 				case "scoreClient":
 					int scoreClient = T7ByteConverter.fromBytes(bytes, Integer.class);
-					T7DataRepository.getInstance().setScoreClient(scoreClient);
+					T7DataRepository.getInstance().setScoreClient(scoreClient, false);
 					break;
 				case "chat":
 					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-					T7DataRepository.getInstance().addChatHistory(chat);
+					T7DataRepository.getInstance().addChatHistory(chat, false);
 					break;
 				default:
 					System.out.println("given SubTopic does not match any forms (as the CLIENT)");
 					System.out.println("message not saved");
 			}
 		}
-
 	}
 
 	@Override
