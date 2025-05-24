@@ -6,12 +6,12 @@ import java.io.IOException;
 
 
 /**
-*	Subscribes for the cloud based on a topic
-* there should be multiple subscribers for multiple topics called
-* 
-* @author Jude Shin
-* 
-*/
+ *	Subscribes for the cloud based on a topic
+ * there should be multiple subscribers for multiple topics called
+ * 
+ * @author Jude Shin
+ * 
+ */
 public class T7Subscriber implements MqttCallback {
 	// private final static String BROKER = "tcp://broker.hivemq.com:1883";
 	// private final static String TOPIC = "cal-poly/csc/307/meee";
@@ -47,27 +47,27 @@ public class T7Subscriber implements MqttCallback {
 			case "ball":
 				T7Ball ball = T7ByteConverter.fromBytes(bytes, T7Ball.class);
 				T7DataRepository.getInstance().setBall(ball);
-			break;
+				break;
 			case "playerHost":
 				T7Player playerHost = T7ByteConverter.fromBytes(bytes, T7Player.class);
 				T7DataRepository.getInstance().setPlayerHost(playerHost);
-			break;
+				break;
 			case "playerClient":
 				T7Player playerClient = T7ByteConverter.fromBytes(bytes, T7Player.class);
 				T7DataRepository.getInstance().setPlayerClient(playerClient);
-			break;
+				break;
 			case "scoreHost":
 				int scoreHost = T7ByteConverter.fromBytes(bytes, Integer.class);
 				T7DataRepository.getInstance().setScoreHost(scoreHost);
-			break;
+				break;
 			case "scoreClient":
 				int scoreClient = T7ByteConverter.fromBytes(bytes, Integer.class);
 				T7DataRepository.getInstance().setScoreClient(scoreClient);
-			break;
+				break;
 			case "chat":
 				T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
 				T7DataRepository.getInstance().addChatHistory(chat);
-			break;
+				break;
 			default:
 				System.out.println("given SubTopic does not match any forms");
 				System.out.println("message not saved");
@@ -78,6 +78,5 @@ public class T7Subscriber implements MqttCallback {
 	public void deliveryComplete(IMqttDeliveryToken iMqttDeliveryToken) {
 		System.out.println("Delivered complete: " + iMqttDeliveryToken.getMessageId());
 	}
-
 }
 

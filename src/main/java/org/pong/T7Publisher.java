@@ -33,9 +33,7 @@ public class T7Publisher implements Runnable {
 			client.connect();
 			System.out.println("Connected to BROKER: " + broker);
 
-			// int counter = 0;
 			while (true) {
-
 				T7PublishItem publishItem = T7DataRepository.getInstance().popPublishQueue();
 				if (publishItem == null) { continue; }
 
@@ -48,9 +46,6 @@ public class T7Publisher implements Runnable {
 				if (client.isConnected()) {
 					client.publish(fullTopic, message);
 				}
-
-				// counter++;
-				// System.out.println("Message published: " + content);
 
 				Thread.sleep(5000); // TODO you can reduce this if you want
 			}
