@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
-
 /**
  * Singleton for all of the data used in pong
  * ball: for the location of the ball
@@ -52,45 +51,59 @@ public class T7DataRepository extends PropertyChangeSupport {
 	}
 
 	public T7Ball getBall() { return ball; }
-	public void setBall(T7Ball ball) {
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void setBall(T7Ball ball) { this.setBall(ball, false); } 
+	public void setBall(T7Ball ball, boolean isSilent) {
 		this.ball = ball; 
-		firePropertyChange("ball", null, ball);
+		if (isSilent)	{ firePropertyChange("ball", null, ball); }
 	}
 
 	public T7Player getPlayerHost() { return playerHost; }
-	public void setPlayerHost(T7Player player) { 
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void setPlayerHost(T7Player player) { this.setPlayerHost(player, false); } 
+	public void setPlayerHost(T7Player player, boolean isSilent) { 
 		this.playerHost = player; 
-		firePropertyChange("playerHost", null, playerHost);
+		if (isSilent)	{ firePropertyChange("playerHost", null, playerHost); }
 	}
 
 	public T7Player getPlayerClient() { return playerClient; }
-	public void setPlayerClient(T7Player player) { 
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void setPlayerClient(T7Player player) { this.setPlayerClient(player, false); }
+	public void setPlayerClient(T7Player player, boolean isSilent) { 
 		this.playerClient = player; 
-		firePropertyChange("playerClient", null, playerClient);
+		if (isSilent)	{ firePropertyChange("playerClient", null, playerClient); }
 	}
 
 	public int getScoreHost() { return scoreHost; }
-	public void setScoreHost(int score) {
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void setScoreHost(int score) { this.setScoreHost(score, false); }
+	public void setScoreHost(int score, boolean isSilent) {
 		scoreHost = score; 
-		firePropertyChange("scoreHost", null, scoreHost);
+		if (isSilent)	{ firePropertyChange("scoreHost", null, scoreHost); }
 	}
 
 	public int getScoreClient() { return scoreClient; }
-	public void setScoreClient(int score) { 
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void setScoreClient(int score) { this.setScoreClient(score, false); }
+	public void setScoreClient(int score, boolean isSilent) { 
 		scoreClient = score; 
-		firePropertyChange("scoreHost", null, scoreHost);
+		if (isSilent)	{ firePropertyChange("scoreHost", null, scoreHost); }
 	}
 
 	public ArrayList<T7Chat> getChatHistory() { return chatHistory; }
-	public void addChatHistory(T7Chat chat) {
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public void addChatHistory(T7Chat chat) { this.addChatHistory(chat, false); }
+	public void addChatHistory(T7Chat chat, boolean isSilent) {
 		chatHistory.add(chat); 
-		firePropertyChange("chatHistory", null, chatHistory);
+		if (isSilent)	{ firePropertyChange("chatHistory", null, chatHistory); }
 	}
 
 	public void pushPublishQueue(T7PublishItem publishItem) { publishQueue.offer(publishItem); }
-	public T7PublishItem popPublishQueue() {
+	// so it doesn't break everything that has been worked on... could be refactored later
+	public T7PublishItem popPublishQueue() { return this.popPublishQueue(false); }
+	public T7PublishItem popPublishQueue(boolean isSilent) {
 		T7PublishItem publishItem = publishQueue.poll();
-		firePropertyChange("publishQueue", null, publishQueue);
+		if (isSilent) { firePropertyChange("publishQueue", null, publishQueue); }
 		// firePropertyChange("publishItem", null, publishItem);
 		return publishItem;
 	}
