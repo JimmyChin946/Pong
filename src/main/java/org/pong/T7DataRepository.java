@@ -55,7 +55,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void setBall(T7Ball ball, boolean isSilent) throws IOException {
 		this.ball = ball; 
 		T7PublishItem publishItem = new T7PublishItem("ball", T7ByteConverter.toBytes(ball));
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("ball", null, ball); 
 	}
 
@@ -63,7 +63,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void setPlayerHost(T7Player player, boolean isSilent) throws IOException { 
 		this.playerHost = player; 
 		T7PublishItem publishItem = new T7PublishItem("playerHost", T7ByteConverter.toBytes(player));
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("playerHost", null, playerHost); 
 	}
 
@@ -71,7 +71,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void setPlayerClient(T7Player player, boolean isSilent) throws IOException { 
 		this.playerClient = player; 
 		T7PublishItem publishItem = new T7PublishItem("playerClient", T7ByteConverter.toBytes(player));
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("playerClient", null, playerClient); 
 	}
 
@@ -79,7 +79,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void setScoreHost(int score, boolean isSilent) throws IOException {
 		scoreHost = score; 
 		T7PublishItem publishItem = new T7PublishItem("scoreHost", T7ByteConverter.toBytes(score));
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("scoreHost", null, scoreHost); 
 	}
 
@@ -87,7 +87,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void setScoreClient(int score, boolean isSilent) throws IOException { 
 		scoreClient = score; 
 		T7PublishItem publishItem = new T7PublishItem("scoreClient", T7ByteConverter.toBytes(score));
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("scoreClient", null, scoreHost); 
 	}
 
@@ -95,7 +95,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	public void addChatHistory(T7Chat chat, boolean isSilent) throws IOException {
 		chatHistory.add(chat); 
 		T7PublishItem publishItem = new T7PublishItem("chat", T7ByteConverter.toBytes(chat)); 
-		if (isSilent)	{ pushPublishQueue(publishItem); }
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("chatHistory", null, chatHistory); 
 		// firePropertyChange("chat", null, chat); // can send this over if we want as well
 	}
