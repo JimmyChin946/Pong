@@ -5,8 +5,8 @@ import java.awt.geom.Point2D;
 import java.beans.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * Singleton for all of the data used in pong
@@ -45,7 +45,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 		scoreHost = 0;
 		scoreClient = 0;
 		chatHistory = new ArrayList<>();
-		publishQueue = new LinkedList<>();
+		publishQueue = new LinkedBlockingQueue<>();
 	}
 
 	public static T7DataRepository getInstance() {

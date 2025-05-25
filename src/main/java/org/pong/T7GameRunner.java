@@ -58,7 +58,7 @@ public class T7GameRunner implements Runnable {
 
         else if (position.getX() >= 2) {
             System.out.println("Player A scores!");
-            repository.setScoreClient(repository.getScoreHost() + 1, false);
+            repository.setScoreHost(repository.getScoreHost() + 1, false);
             ball.setPosition(new Point2D.Double(0.2, 0.5));
         }
 

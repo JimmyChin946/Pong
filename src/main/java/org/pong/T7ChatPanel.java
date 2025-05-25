@@ -42,6 +42,8 @@ public class T7ChatPanel extends JPanel implements PropertyChangeListener {
         JButton messageButton = new JButton("Send");
         messagePrompt.add(messageButton);
         messageButton.addActionListener(e -> {
+            if (messageField.getText().isEmpty()) return;
+
             T7Chat message = new T7Chat(playerName, messageField.getText(), LocalDateTime.now());
             try {
                 repository.addChatHistory(message, false);

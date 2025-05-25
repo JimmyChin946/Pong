@@ -13,16 +13,15 @@ public class T7Field extends JPanel implements PropertyChangeListener {
     private final T7DataRepository repository;
 
     public T7Field() {
-        setFocusable(true);
-        requestFocusInWindow();
+        super();
 
         repository = T7DataRepository.getInstance();
 
         repository.addPropertyChangeListener("ball", this);
         repository.addPropertyChangeListener("playerHost", this);
         repository.addPropertyChangeListener("playerClient", this);
-
-        addKeyListener(T7KeyHandler.getInstance());
+        repository.addPropertyChangeListener("scoreHost", this);
+        repository.addPropertyChangeListener("scoreClient", this);
     }
 
     @Override
@@ -37,7 +36,7 @@ public class T7Field extends JPanel implements PropertyChangeListener {
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Player A Score: " + repository.getScoreHost(), 20, 30);
-        g.drawString("Player B Score: " + repository.getScoreClient(), 600, 30);
+        g.drawString("Player B Score: " + repository.getScoreClient(), getWidth() - 220, 30);
     }
 
     @Override

@@ -12,19 +12,19 @@ import java.util.Arrays;
  * 
  */
 public class T7Publisher implements Runnable {
-	// private final static String BROKER = "tcp://broker.hivemq.com:1883";
+//	 private final static String BROKER = "tcp://broker.hivemq.com:1883";
 	// private final static String TOPIC = "cal-poly/csc/307/meee";
 	// private final static String CLIENT_ID = "god-sender";
 	private String broker;
 	private String topic;
 	private String id;
-	private final boolean isHost;
+	private final T7Game.PlayerType type;
 
-	public T7Publisher(String broker, String topic, String id, boolean isHost) {
+	public T7Publisher(String broker, String topic, T7Game.PlayerType type) {
 		this.broker = broker;
 		this.topic = topic;
-		this.id = id;
-		this.isHost = isHost;
+		this.id = type == T7Game.PlayerType.HOST ? "PongHostPublisher" : "PongClientPublisher";
+		this.type = type;
 	}
 
 	public void setTopic(String topic) { this.topic = topic; };
@@ -46,14 +46,14 @@ public class T7Publisher implements Runnable {
 				
 
 				// checks to make sure we are publishing the correct things
-				if (isHost) {
+				if (type == T7Game.PlayerType.HOST) {
 					String[] allowedHostTopics = {"ball", "scoreHost", "scoreClient", "playerHost", "chat"};
 					if (!Arrays.asList(allowedHostTopics).contains(subTopic)) {
 						System.out.println("HOST is not allowed to publish the following topic: " + subTopic);
 						continue;
 					}
 				}
-				else if (!((subTopic == "playerClient") || (subTopic == "chat"))) {
+				else if (type == T7Game.PlayerType.CLIENT) {
 					String[] allowedClientTopics = {"playerClient", "chat"};
 					if (!Arrays.asList(allowedClientTopics).contains(subTopic)) {
 						System.out.println("CLIENT is not allowed to publish the following topic: " + subTopic);
@@ -67,10 +67,8 @@ public class T7Publisher implements Runnable {
 				if (client.isConnected()) {
 					client.publish(fullTopic, message);
 				}
-
-				Thread.sleep(5000); // TODO you can reduce this if you want
 			}
-		} catch (MqttException | InterruptedException e) {
+		} catch (MqttException e) {
 			e.printStackTrace();
 		}
 	}

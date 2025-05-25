@@ -38,10 +38,19 @@ public class T7Game implements EventListener {
     private T7Game(String playerName, PlayerType type) {
         frame.setLayout(new GridLayout(2, 1));
 
+        frame.addKeyListener(T7KeyHandler.getInstance());
+        frame.setFocusable(true);
+        frame.requestFocusInWindow();
+
         frame.add(new T7Field());
         frame.add(new T7ChatPanel(playerName));
 
         frame.setVisible(true);
+
+        T7Publisher publisher = new T7Publisher("tcp://test.mosquitto.org:1883", "csc-307/pong-game", type);
+        new Thread(publisher).start();
+
+        new T7Subscriber("tcp://test.mosquitto.org:1883", "csc-307/pong-game/+", type);
 
         runner = new T7GameRunner(type);
         new Thread(runner).start();

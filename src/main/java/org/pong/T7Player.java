@@ -23,10 +23,10 @@ public class T7Player implements Serializable {
     }
 
     public void moveUp() {
-        if (y >= 0) y -= 0.1;
+        if (y >= 0) y -= 0.01;
     }
 
     public void moveDown() {
-        if (y <= 1) y += 0.1;
+        if (y <= 1 - height) y += 0.01;
     }
 }
