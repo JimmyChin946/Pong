@@ -2,6 +2,11 @@ package org.pong;
 
 import java.awt.*;
 
+/**
+ * Displays a win message, and draws a trophy.
+ *
+ * @author Nathan Lackie
+ */
 public class T7Win {
     private static double[] trophyBaseX = new double[]{-2.5,-2.5,2.5,2.5};
     private static double[] trophyBaseY = new double[]{4.4,3.7,3.7,4.4};
