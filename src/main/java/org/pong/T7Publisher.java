@@ -62,7 +62,9 @@ public class T7Publisher implements Runnable {
 				}
 
 				MqttMessage message = new MqttMessage(content);
-				message.setQos(2);
+				message.setQos(0); // {"ball", "playerHost", "playerClient"};
+				String[] priority2Topics = {"chat", "scoreClient", "scoreHost"};
+				if (!Arrays.asList(priority2Topics).contains(subTopic)) { message.setQos(2); }
 
 				if (client.isConnected()) {
 					client.publish(fullTopic, message);
