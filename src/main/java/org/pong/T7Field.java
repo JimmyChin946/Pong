@@ -40,10 +40,19 @@ public class T7Field extends JPanel implements PropertyChangeListener {
         repository.getPlayerHost().draw(g, scale);
         repository.getPlayerClient().draw(g, scale);
 
+        int playerAScore = repository.getScoreHost();
+        int playerBScore = repository.getScoreClient();
+
         g.setColor(Color.BLACK);
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Player A Score: " + repository.getScoreHost(), 20, 30);
-        g.drawString("Player B Score: " + repository.getScoreClient(), getWidth() - 220, 30);
+        g.drawString("Player A Score: " + playerAScore, 20, 30);
+        g.drawString("Player B Score: " + playerBScore, getWidth() - 220, 30);
+
+        if (playerAScore >= 7) {
+            T7Win.draw(g, scale, "Player A");
+        } else if (playerBScore >= 7) {
+            T7Win.draw(g, scale, "Player B");
+        }
     }
 
     @Override

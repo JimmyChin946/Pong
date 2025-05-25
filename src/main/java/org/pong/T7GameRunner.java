@@ -15,6 +15,7 @@ public class T7GameRunner implements Runnable {
     T7Game.PlayerType type;
     T7DataRepository repository = T7DataRepository.getInstance();
     T7KeyHandler keyHandler = T7KeyHandler.getInstance();
+    boolean gameWon = false;
 
     public T7GameRunner(T7Game.PlayerType type) {
         this.type = type;
@@ -23,17 +24,15 @@ public class T7GameRunner implements Runnable {
     @Override
     public void run() {
         try {
-            if (type == T7Game.PlayerType.HOST) {
-                while (true) {
+            while (true) {
+                if (type == T7Game.PlayerType.HOST) {
                     gameTick();
-                    movementTick(type);
-                    Thread.sleep(30);
                 }
-            } else {
-                while (true) {
-                    movementTick(type);
-                    Thread.sleep(30);
+                movementTick(type);
+                if (gameWon) {
+                    return;
                 }
+                Thread.sleep(30);
             }
         } catch (InterruptedException | IOException e) {
             throw new RuntimeException(e);
@@ -67,6 +66,10 @@ public class T7GameRunner implements Runnable {
             System.out.println("Player A scores!");
             repository.setScoreHost(repository.getScoreHost() + 1, false);
             ball.setPosition(new Point2D.Double(0.2, 0.5));
+        }
+
+        if (repository.getScoreHost() >= 7 || repository.getScoreClient() >= 7) {
+            gameWon = true;
         }
 
         repository.setBall(ball, false);
