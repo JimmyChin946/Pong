@@ -27,8 +27,6 @@ public class T7Publisher implements Runnable {
 		this.type = type;
 	}
 
-	public void setTopic(String topic) { this.topic = topic; };
-
 	@Override
 	public void run() {
 		try {
