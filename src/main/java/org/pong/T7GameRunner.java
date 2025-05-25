@@ -1,9 +1,16 @@
 package org.pong;
 
-import java.awt.*;
 import java.awt.geom.Point2D;
 import java.io.IOException;
 
+/**
+ * Implements the main game loop in a separate thread.
+ * It handles movement and game state updates depending on whether the instance is running
+ * as a host or a client. Hosts process full game logic, while clients only process player movement.
+ *
+ *
+ * @author Nathan Lackie
+ */
 public class T7GameRunner implements Runnable {
     T7Game.PlayerType type;
     T7DataRepository repository = T7DataRepository.getInstance();

@@ -13,7 +13,9 @@ import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 /**
- *
+ * A custom chat panel used for displaying and sending chat messages in the GUI.
+ * This panel displays the most recent messages and allows the user to send a new message.
+ * It listens for changes in the chat history via a {@link PropertyChangeListener}.
  *
  * @author Nathan Lackie
  */

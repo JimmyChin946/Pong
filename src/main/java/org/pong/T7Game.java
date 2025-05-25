@@ -5,7 +5,9 @@ import java.util.EventListener;
 import javax.swing.*;
 
 /**
- *
+ * Main entry point and controller for the multiplayer pong game.
+ * It manages the GUI frame, initializes game components, and coordinates the hosting and subscribing
+ * of game state over a network using the MQTT protocol.
  *
  * @author Nathan Lackie
  */

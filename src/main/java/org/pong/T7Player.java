@@ -4,6 +4,11 @@ import java.awt.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
+/**
+ * Represents a player's paddle in the game with a fixed size and position.
+ *
+ * @author Kai Swangler
+ */
 public class T7Player implements Serializable {
     private double x, y;
     private final double width = 0.05, height = 0.3;

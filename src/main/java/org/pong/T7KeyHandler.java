@@ -3,6 +3,11 @@ package org.pong;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+/**
+ * Singleton class that handles keyboard input events for the UP and DOWN arrow keys.
+ *
+ * @author Kai Swangler
+ */
 public class T7KeyHandler implements KeyListener {
     private static T7KeyHandler instance = new T7KeyHandler();
 

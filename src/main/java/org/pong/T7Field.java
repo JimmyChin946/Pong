@@ -9,6 +9,13 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * JPanel that visually represents the game field for the game.
+ * It listens for changes in key properties of the game state (ball position, player positions, and scores)
+ * and repaints the panel accordingly.
+ *
+ * @author Kai Swangler
+ */
 public class T7Field extends JPanel implements PropertyChangeListener {
     private final T7DataRepository repository;
 

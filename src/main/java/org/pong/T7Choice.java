@@ -3,6 +3,13 @@ package org.pong;
 import java.awt.*;
 import javax.swing.*;
 
+/**
+ * T7Choice is a JPanel that provides a simple user interface to enter a player name
+ * and choose whether to host or join a game as a client. It displays a text field for
+ * the user's name and two buttons for selecting the game role.
+ *
+ * @author Nathan Lackie
+ */
 public class T7Choice extends JPanel {
     private JTextField nameField;
     private JButton hostButton;
