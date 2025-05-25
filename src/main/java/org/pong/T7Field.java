@@ -41,6 +41,6 @@ public class T7Field extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent e) {
-        paintComponent(getGraphics());
+        repaint();
     }
 }
