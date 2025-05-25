@@ -6,8 +6,6 @@ package org.pong;
  * this includes the name of the author
  * and the content of the message
  *
- * TODO we can add the date if we want later
- *
  * @author Jude Shin
  *
  */

@@ -2,21 +2,16 @@ package org.pong;
 
 import java.util.ArrayList;
 import org.eclipse.paho.client.mqttv3.*;
-
 import java.io.IOException;
 
 
 /**
- *	Subscribes for the cloud based on a topic
- * there should be multiple subscribers for multiple topics called
- * 
+ * Subscribes for the cloud based on a topic
+ *
  * @author Jude Shin
  * 
  */
 public class T7Subscriber implements MqttCallback {
-	// private final static String BROKER = "tcp://broker.hivemq.com:1883";
-	// private final static String TOPIC = "cal-poly/csc/307/meee";
-	// private final static String CLIENT_ID = "god-listener";
 	private final T7Game.PlayerType type;
 
 	public T7Subscriber(String broker, String topic, T7Game.PlayerType type) {
@@ -46,8 +41,6 @@ public class T7Subscriber implements MqttCallback {
 		String[] topics = s.split("/");
 		String subTopic = topics[topics.length - 1];
 
-//		System.out.println("Message Arrived! TOPIC: " + subTopic);
-
 		if (type == T7Game.PlayerType.HOST) {
 			switch (subTopic) {
 				case "playerClient":
@@ -59,8 +52,6 @@ public class T7Subscriber implements MqttCallback {
 					T7DataRepository.getInstance().setChatHistory(chat, true);
 					break;
 				default:
-//					System.out.println("given SubTopic does not match any forms (as the HOST)");
-//					System.out.println("message not saved");
 			}
 		}
 		else {
@@ -86,8 +77,6 @@ public class T7Subscriber implements MqttCallback {
 					T7DataRepository.getInstance().setChatHistory(chat, true);
 					break;
 				default:
-//					System.out.println("given SubTopic does not match any forms (as the CLIENT)");
-//					System.out.println("message not saved");
 			}
 		}
 	}

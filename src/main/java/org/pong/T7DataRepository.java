@@ -9,13 +9,14 @@ import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
- * Singleton for all of the data used in pong
+ * Singleton for all the data used in pong
  * ball: for the location of the ball
  * playerHost : for the location of one of the players paddle
  * playerClient : for the location of the other players paddle
  * scoreHost : the score of one of the players
  * scoreClient : the score of the other player
  * chatHistory : the log of the game's chat history
+ * publishQueue : the pieces of data that is to be published to the cloud
  * 
  * @author Jude Shin 
  * 

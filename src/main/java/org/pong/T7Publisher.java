@@ -12,9 +12,6 @@ import java.util.Arrays;
  * 
  */
 public class T7Publisher implements Runnable {
-//	 private final static String BROKER = "tcp://broker.hivemq.com:1883";
-	// private final static String TOPIC = "cal-poly/csc/307/meee";
-	// private final static String CLIENT_ID = "god-sender";
 	private String broker;
 	private String topic;
 	private String id;

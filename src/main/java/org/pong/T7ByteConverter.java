@@ -27,10 +27,4 @@ class T7ByteConverter {
 			return cls.cast(in.readObject());
 		}
 	}
-
-	// public byte[] encodeInt(int i){ return new byte[]{(byte)i}; }
-	// public int decodeInt(byte[] ba){ return (ba[0]) & 0xFF; }
-
-	// public byte[] encodeString(String s){ return s.getBytes(StandardCharsets.UTF_8); }
-	// public String decodeString(byte[] ba){ return new String(ba, StandardCharsets.UTF_8); }
 }
