@@ -95,10 +95,18 @@ public class T7DataRepository extends PropertyChangeSupport {
 
 	public ArrayList<T7Chat> getChatHistory() { return chatHistory; }
 	public void addChatHistory(T7Chat chat, boolean isSilent) throws IOException {
-		chatHistory.add(chat); 
-		T7PublishItem publishItem = new T7PublishItem("chat", T7ByteConverter.toBytes(chat)); 
+		chatHistory.add(chat);
+		T7PublishItem publishItem = new T7PublishItem("chat", T7ByteConverter.toBytes(chatHistory));
 		if (!isSilent)	{ pushPublishQueue(publishItem); }
 		firePropertyChange("chatHistory", null, chatHistory); 
+		// firePropertyChange("chat", null, chat); // can send this over if we want as well
+	}
+
+	public void setChatHistory(ArrayList<T7Chat> chat, boolean isSilent) throws IOException {
+		chatHistory = chat;
+		T7PublishItem publishItem = new T7PublishItem("chat", T7ByteConverter.toBytes(chatHistory));
+		if (!isSilent)	{ pushPublishQueue(publishItem); }
+		firePropertyChange("chatHistory", null, chatHistory);
 		// firePropertyChange("chat", null, chat); // can send this over if we want as well
 	}
 

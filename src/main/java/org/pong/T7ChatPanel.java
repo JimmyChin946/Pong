@@ -61,8 +61,6 @@ public class T7ChatPanel extends JPanel implements PropertyChangeListener {
 
     public void draw(ArrayList<T7Chat> messages) {
         removeAll();
-        revalidate();
-        repaint();
 
         for (int i = messages.size() - MAX_MESSAGES; i < messages.size(); i++) {
             String line;
@@ -79,6 +77,9 @@ public class T7ChatPanel extends JPanel implements PropertyChangeListener {
         }
 
         add(messagePrompt);
+
+        revalidate();
+        repaint();
     }
 
     @Override

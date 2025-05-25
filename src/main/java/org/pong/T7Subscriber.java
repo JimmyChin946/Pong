@@ -1,5 +1,6 @@
 package org.pong;
 
+import java.util.ArrayList;
 import org.eclipse.paho.client.mqttv3.*;
 
 import java.io.IOException;
@@ -54,8 +55,8 @@ public class T7Subscriber implements MqttCallback {
 					T7DataRepository.getInstance().setPlayerClient(playerClient, true);
 					break;
 				case "chat":
-					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-					T7DataRepository.getInstance().addChatHistory(chat, true);
+					ArrayList<T7Chat> chat = T7ByteConverter.fromBytes(bytes, ArrayList.class);
+					T7DataRepository.getInstance().setChatHistory(chat, true);
 					break;
 				default:
 //					System.out.println("given SubTopic does not match any forms (as the HOST)");
@@ -81,8 +82,8 @@ public class T7Subscriber implements MqttCallback {
 					T7DataRepository.getInstance().setScoreClient(scoreClient, true);
 					break;
 				case "chat":
-					T7Chat chat = T7ByteConverter.fromBytes(bytes, T7Chat.class);
-					T7DataRepository.getInstance().addChatHistory(chat, true);
+					ArrayList<T7Chat> chat = T7ByteConverter.fromBytes(bytes, ArrayList.class);
+					T7DataRepository.getInstance().setChatHistory(chat, true);
 					break;
 				default:
 //					System.out.println("given SubTopic does not match any forms (as the CLIENT)");
