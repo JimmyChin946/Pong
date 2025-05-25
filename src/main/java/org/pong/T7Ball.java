@@ -1,6 +1,9 @@
 package org.pong;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 
 /**
  * A data structure for the ball
@@ -8,57 +11,44 @@ import java.awt.*;
  * @author Kai Swangler
  * @version 1.0
  */
-public class T7Ball {
-    private static final long serialVersionUID = 1L;
-
-    private int x, y;
-    private int dx = 5, dy =5;
-    private int size = 20;
+public class T7Ball implements Serializable {
+    private Point2D position;
+    private Point2D velocity;
+    private double size = 0.05;
 
 
-    public T7Ball() {
-        x = 100;
-        y = 100;
+    public T7Ball(Point2D position) {
+        this.position = position;
+        this.velocity = new Point2D.Double(0.01, 0.01);
     }
 
-    public void moveBall(int width, int height) {
-        x += dx;
-        y += dy;
-
-        if (y <= 0 || y + size >= height) {
-            dy = -dy;
-        }
-
-        if (x <= 0 || x + size >= width) {
-            dx = -dx;
-        }
-
-        T7DataRepository.getInstance().setBall(this);
-
+    public void moveBall() {
+        position.setLocation(position.getX() + velocity.getX(), position.getY() + velocity.getY());
     }
 
-    public void reset() {
-        x = 400;
-        y = 300;
-
-        T7DataRepository.getInstance().setBall(this);
+    public Rectangle2D getBounds() {
+        return new Rectangle2D.Double(position.getX(), position.getY(), size, size);
     }
 
-    public Rectangle getBounds() {
-        return new Rectangle(x, y, size, size);
+    public Point2D getPosition() {
+        return position;
     }
 
-    public int getX() {return x;}
-    public int getY() {return y;}
+    public void setPosition(Point2D position) {
+        this.position = position;
+    }
 
+    public void reverseY() {
+        velocity.setLocation(velocity.getX(), -velocity.getY());
+    }
 
     public void reverseX() {
-        dx = -dx;
+        velocity.setLocation(-velocity.getX(), velocity.getY());
     }
-    public void draw(Graphics g) {
-        g.setColor(Color.ORANGE);
-        g.fillRect(x, y, size, size);
 
-        System.out.println(x + " " +y);
+    protected void draw(Graphics g, double scale) {
+        g.setColor(Color.ORANGE);
+        int screenSize = (int) (size * scale);
+        g.fillRect((int) (position.getX() * scale), (int) (position.getY() * scale), screenSize, screenSize);
     }
 }

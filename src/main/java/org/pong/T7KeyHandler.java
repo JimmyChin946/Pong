@@ -4,10 +4,18 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class T7KeyHandler implements KeyListener {
+    private static T7KeyHandler instance = new T7KeyHandler();
+
     private boolean upPressed, downPressed;
 
     public boolean isUpPressed() { return upPressed; }
     public boolean isDownPressed() { return downPressed; }
+
+    private T7KeyHandler() {}
+
+    public static T7KeyHandler getInstance() {
+        return instance;
+    }
 
     @Override
     public void keyPressed(KeyEvent e) {

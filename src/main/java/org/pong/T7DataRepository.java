@@ -1,5 +1,7 @@
 package org.pong;
 
+import java.awt.*;
+import java.awt.geom.Point2D;
 import java.beans.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,9 +39,9 @@ public class T7DataRepository extends PropertyChangeSupport {
 		super(new Object());
 
 		// default values
-		ball = new T7Ball();
-		playerHost = new T7Player();
-		playerClient = new T7Player();
+		ball = new T7Ball(new Point2D.Double(0.2, 0.5));
+		playerHost = new T7Player(0.1, 0.5);
+		playerClient = new T7Player(1.9, 0.5);
 		scoreHost = 0;
 		scoreClient = 0;
 		chatHistory = new ArrayList<>();
@@ -60,11 +62,11 @@ public class T7DataRepository extends PropertyChangeSupport {
 	}
 
 	public T7Player getPlayerHost() { return playerHost; }
-	public void setPlayerHost(T7Player player, boolean isSilent) throws IOException { 
+	public void setPlayerHost(T7Player player, boolean isSilent) throws IOException {
 		this.playerHost = player; 
 		T7PublishItem publishItem = new T7PublishItem("playerHost", T7ByteConverter.toBytes(player));
 		if (!isSilent)	{ pushPublishQueue(publishItem); }
-		firePropertyChange("playerHost", null, playerHost); 
+		firePropertyChange("playerHost", null, playerHost);
 	}
 
 	public T7Player getPlayerClient() { return playerClient; }
@@ -84,7 +86,7 @@ public class T7DataRepository extends PropertyChangeSupport {
 	}
 
 	public int getScoreClient() { return scoreClient; }
-	public void setScoreClient(int score, boolean isSilent) throws IOException { 
+	public void setScoreClient(int score, boolean isSilent) throws IOException {
 		scoreClient = score; 
 		T7PublishItem publishItem = new T7PublishItem("scoreClient", T7ByteConverter.toBytes(score));
 		if (!isSilent)	{ pushPublishQueue(publishItem); }
